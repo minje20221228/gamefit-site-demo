@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="GameFit의 다운로드·공개 출시 준비 상태와 무료 합성 데모 안내. 실제 Windows 공개 실행파일과 유료 결제는 미출시입니다.">
+<meta name="theme-color" content="#090f16">
+<title>GameFit — 다운로드와 출시 현황</title>
+<style>
+:root{color-scheme:dark;font:15px/1.75 system-ui,-apple-system,"Malgun Gothic",sans-serif;color:#edf5f0;background:#090f16;--a:#cbf58d;--line:#334b56;--muted:#adbec6}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible{outline:3px solid var(--a);outline-offset:4px}
+.wrap{max-width:1120px;width:calc(100% - 42px);margin:auto}header{border-bottom:1px solid var(--line);background:#0e1b24}
+nav{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:22px;text-decoration:none;letter-spacing:-.06em}.logo span{color:var(--a)}
+.links{display:flex;gap:19px;flex-wrap:wrap;font-size:12px;color:#b6cbd1}.links a{text-decoration:none}
+main{padding:83px 0 110px}.eyebrow{font-weight:900;letter-spacing:.15em;font-size:11px;color:var(--a)}
+h1{font-size:clamp(38px,5.6vw,68px);letter-spacing:-.07em;line-height:1.23;margin:18px 0 24px}h1 em{font-style:normal;color:var(--a)}
+.lead{max-width:750px;color:#b3c7c8;font-size:16px}
+.statusbar{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin:30px 0 42px;color:#d0ddda;font-size:12px}.chip{border:1px solid #8a9566;color:#e4d7a1;border-radius:99px;padding:5px 13px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{min-width:0;padding:30px;border-radius:15px;border:1px solid var(--line);background:#12232d;display:flex;flex-direction:column}
+.card.highlight{border-color:#6d9962;background:linear-gradient(145deg,#182b28,#132630)}
+.small{color:var(--a);letter-spacing:.13em;font-size:11px;font-weight:900}
+.card h2{font-size:27px;letter-spacing:-.055em;line-height:1.3;margin:15px 0 15px}
+.card p{font-size:13px;color:#b9ced0;max-width:470px;margin-top:0}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:auto;padding-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 19px;text-decoration:none;border:1px solid #6b8891;border-radius:8px;font-size:13px;font-weight:900}
+.btn.primary{background:var(--a);border-color:var(--a);color:#1a2811}.btn:hover{border-color:var(--a)}
+.details{margin-top:50px;display:grid;grid-template-columns:.75fr 1.25fr;gap:50px}
+h3{font-size:23px;letter-spacing:-.05em;margin:0 0 16px}
+.check{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:13px}
+.check span:first-child{color:#c1d3d6}.notyet{color:#e6bd99;font-weight:850;white-space:nowrap}.yes{color:var(--a);font-weight:850;white-space:nowrap}
+.footer{margin-top:40px;border-top:1px solid var(--line);padding-top:24px;font-size:12px;color:#b2c8cb}
+@media(max-width:790px){main{padding-top:44px}.grid,.details{grid-template-columns:1fr}.card{padding:22px}.details{gap:15px}}
+
+/* E17 cohesive product-quality polish: studio editorial grid. */
+body{background:radial-gradient(ellipse at 82% 2%,rgba(194,246,137,.08),transparent 29%),#081118}
+header{background:rgba(12,27,34,.96);backdrop-filter:blur(14px);position:sticky;top:0;z-index:3}
+.logo{letter-spacing:-.07em}
+h1{max-width:900px}
+.lead{line-height:1.95}
+.card{position:relative;overflow:hidden;box-shadow:0 26px 60px rgba(0,0,0,.14)}
+.card.highlight:before{content:"OPEN ACCESS";position:absolute;top:15px;right:21px;color:#cae8ab;font-size:10px;letter-spacing:.12em;font-weight:900}
+.card h2{font-size:clamp(24px,3vw,33px)}
+.btn{transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.btn:hover{transform:translateY(-2px)}
+.check{padding-block:16px}
+.launch-context{border:1px solid #53664c;border-radius:12px;padding:18px 21px;background:rgba(170,223,125,.055);font-size:12px;color:#c3d5c5;margin-bottom:20px}
+.launch-context strong{color:#d3f6ad}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}.btn:hover{transform:none}}
+
+</style></head><body>
+<header><nav class="wrap"><a href="index.html" class="logo">Game<span>Fit.</span></a><div class="links"><a href="index.html">제품 소개</a><a href="preview.html">합성 시연</a><a href="plans.html">무료·Pro 플랜</a><a href="account.html">회원가입 준비</a><a href="checkout.html">결제 도입 현황</a></div></nav></header>
+<main class="wrap">
+<div class="eyebrow">LAUNCH STATUS / E14</div>
+<h1>준비된 기능부터,<br><em>정확하게 전달합니다.</em></h1>
+<p class="lead">GameFit의 무료 데모와 Windows 베타는 서로 다릅니다. 지금 다운로드할 수 있는 파일과 출시 전 안전 검증이 필요한 파일을 구분해서 안내합니다.</p>
+<div class="statusbar"><span class="chip">정식 공개 출시 이전</span><span>실제 게임 FPS 개선 보증 없음 · 결제 미활성화</span></div>
+<p class="launch-context"><strong>무료 공개 체험 안내</strong> · 합성 HTML 데모는 로그인·설치 없이 체험할 수 있습니다. Windows 원본 베타는 GitHub 접근 권한이 필요하며 현재 일반 공개 설치파일이 아닙니다.</p>
+<div class="grid">
+<article class="card highlight">
+<div class="small">AVAILABLE / BROWSER DEMO</div>
+<h2>무료 오프라인 체험</h2>
+<p>실제 게임 데이터를 수집하지 않는 합성 FPS 비교 화면입니다. HTML 파일을 다운로드한 뒤 브라우저에서 열어 볼 수 있습니다. 인터넷 연결이나 프로그램 설치가 필요하지 않습니다.</p>
+<div class="actions"><a class="btn primary" href="preview.html" download="GameFit-Offline-Demo.html" id="demoDownload">합성 데모 HTML 다운로드</a><a class="btn" href="preview.html">설치 없이 체험</a><a class="btn" href="download-check.html" id="downloadSelfCheck">파일 다운로드 직접 점검</a></div>
+</article>
+<article class="card">
+<div class="small">PRIVATE / WINDOWS TEST BUILD</div>
+<h2>Windows x64 포터블 베타</h2>
+<p>GitHub 비공개 저장소에 있는 무서명 파일입니다. 저장소 읽기 권한을 가진 사용자만 접근 가능합니다. 이 베타에는 최신 E13·E14 코드가 포함되어 있지 않습니다.</p>
+<div class="actions"><a class="btn" href="https://github.com/minje20221228/gamefit-site/releases/tag/v0.10.0-beta.1" target="_blank" rel="noopener noreferrer">권한이 있는 사용자용 베타</a><a class="btn" href="verify.html">받은 ZIP SHA-256 확인</a></div>
+</article>
+</div>
+<section class="details" aria-label="공개 출시 기준">
+<div><div class="eyebrow">TRUST BEFORE RELEASE</div><h3>아직 공개 ZIP을<br>배포하지 않는 이유</h3><p class="lead" style="font-size:13px">코드와 자동 브라우저 테스트에 성공했다는 사실만으로 모든 Windows PC에서 실행된다고 보장할 수 없기 때문입니다.</p><a href="checkout.html" class="btn" style="margin-top:15px">카드·간편결제·계좌이체 준비 상태 보기</a></div>
+<div>
+<div class="check"><span>합성 UI·CSV 자동 테스트</span><span class="yes">검증 기반 있음</span></div>
+<div class="check"><span>실제 사용자 Windows 게임 측정</span><span class="notyet">추가 검증 필요</span></div>
+<div class="check"><span>독립적인 실행파일 보안 검토</span><span class="notyet">미완료</span></div>
+<div class="check"><span>Windows 코드 서명</span><span class="notyet">미완료</span></div>
+<div class="check"><span>익명 방문자 공개 Windows ZIP</span><span class="notyet">미출시</span></div>
+<div class="check"><span>PG 승인·실결제·환불 정책</span><span class="notyet">미연동</span></div>
+</div>
+</section>
+<div class="footer">무서명 실행파일의 해시 일치는 바이너리 안전성 인증이 아닙니다. 이 페이지는 출시 준비 상태 안내이며 결제나 자동 다운로드를 실행하지 않습니다.</div>
+</main></body></html>

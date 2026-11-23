@@ -1,0 +1,104 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09151b">
+<meta name="description" content="GameFit 회원가입 준비와 개인정보·이용약관·마케팅 문자 수신 동의 구조. 개인정보 수집과 실제 가입은 비활성화되어 있습니다.">
+<title>GameFit — 회원가입 사전 안내 · 동의 선택</title>
+<style>
+:root{color-scheme:dark;--a:#c6f781;--fg:#f2f6ef;--muted:#bfd1d1;--line:#39565b;font:15px/1.8 system-ui,-apple-system,"Malgun Gothic",sans-serif;background:#09151b;color:var(--fg)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 82% 4%,rgba(198,247,129,.08),transparent 40%),#09151b}
+a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.wrap{width:min(940px,calc(100% - 36px));margin:auto}header{border-bottom:1px solid var(--line);background:#0e2029}
+nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:74px;flex-wrap:wrap}
+.logo{text-decoration:none;font-size:23px;letter-spacing:-.07em;font-weight:900}.logo span{color:var(--a)}
+.navlinks{display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:#c2d8d5}.navlinks a{text-decoration:none}
+main{padding:67px 0 89px}.eyebrow{font-size:11px;font-weight:900;color:var(--a);letter-spacing:.13em}
+h1{font-size:clamp(34px,5.6vw,61px);letter-spacing:-.067em;line-height:1.19;margin:15px 0}
+h1 em{font-style:normal;color:var(--a)}h2{font-size:22px;letter-spacing:-.04em;margin:0 0 10px}
+.lead{max-width:770px;color:var(--muted)}.status{border:1px solid #9c896c;border-radius:8px;background:#2c2b24;color:#f8e6cc;padding:14px 17px;margin:24px 0;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);gap:18px;margin-top:26px}
+.panel{background:#142934;border:1px solid var(--line);border-radius:17px;padding:24px;min-width:0}
+.kicker{font-size:10px;color:var(--a);letter-spacing:.12em;font-weight:900}.fields{display:grid;gap:13px;margin:15px 0}
+.fields label{font-size:12px;color:#d2dfd8;font-weight:800;display:grid;gap:5px}
+.fields input{width:100%;padding:13px;border-radius:8px;border:1px solid #596e72;background:#20313b;color:#b7c8c7;font:inherit;font-size:13px}
+.fields input:disabled{opacity:.7;cursor:not-allowed}
+.consent{display:grid;grid-template-columns:auto minmax(0,1fr);gap:13px;padding:18px 0;border-bottom:1px solid #344e55}
+.consent input[type=checkbox]{appearance:auto;accent-color:var(--a);width:19px;height:19px;margin:5px 0;cursor:pointer}
+.consent strong{font-size:14px}.consent p{font-size:12px;color:#b6cfcb;margin:5px 0}.consent .optional{font-size:10px;color:#d0e6ca}
+.consent .required{font-size:10px;color:#f8d9b0}
+details{margin-top:10px;background:#10212a;border:1px solid #39545a;border-radius:9px;padding:11px 13px}
+summary{cursor:pointer;font-size:12px;font-weight:800}
+details p,details li{font-size:12px;color:#b7c8c7}
+details ul{padding-left:19px}
+.action{margin-top:19px}.btn{background:var(--a);color:#162710;border:0;border-radius:9px;font-weight:900;font-size:13px;padding:13px 18px;cursor:pointer}
+.btn.secondary{background:transparent;color:#d2e9d5;border:1px solid #91b381}
+.btn:disabled{background:#53625a;color:#d2ddda;cursor:not-allowed}.controls{display:flex;gap:10px;flex-wrap:wrap}
+.message{font-size:12px;color:#d6e9d4;margin-top:13px}p,.note{line-height:1.8}
+.note{font-size:12px;color:#bacdd0}.steps{padding-left:19px;font-size:13px;color:#c7d9d8;display:grid;gap:13px}
+.back{color:var(--a);font-size:13px}footer{border-top:1px solid var(--line);font-size:11px;color:#bacbd0;padding:23px 0}
+@media(max-width:780px){main{padding-top:34px}.layout{grid-template-columns:1fr}.panel{padding:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style></head><body>
+<header><nav class="wrap"><a class="logo" href="index.html">Game<span>Fit.</span></a><div class="navlinks"><a href="launch.html">무료 데모</a><a href="plans.html">요금제</a><a href="checkout.html">결제 준비</a></div></nav></header>
+<main class="wrap">
+<span class="eyebrow">ACCOUNT / PRIVACY FIRST · PRE-LAUNCH</span>
+<h1>가입보다 먼저,<br><em>어떤 정보에 동의하는지.</em></h1>
+<p class="lead">GameFit 계정 출시를 준비 중이에요. 현재 회원가입 서버·인증·개인정보 보유 정책 검증이 완료되지 않아 <strong>실제 회원가입은 받지 않습니다.</strong> 아래는 필수·선택 동의가 독립적으로 동작하는지 확인하는 사전 화면이에요.</p>
+<p class="status"><strong>현재 상태: 회원가입 비활성</strong> · 이메일/비밀번호/전화번호 입력 불가 · 서버로 전송하지 않음 · 쿠키·광고 SDK·전화번호 저장 없음 · 동의 선택은 브라우저에서만 임시 표시</p>
+<div class="layout">
+<section class="panel" aria-labelledby="accountTitle">
+<div class="kicker">01 / ACCOUNT PREVIEW</div><h2 id="accountTitle">동의 항목 사전 확인</h2>
+<div class="fields">
+<label for="email">이메일 <input id="email" type="email" autocomplete="off" placeholder="회원가입 출시 후 입력 가능" disabled></label>
+<label for="password">비밀번호 <input id="password" type="password" autocomplete="off" placeholder="보안 검증 이후 입력 가능" disabled></label>
+<label for="mobileNumber">휴대전화번호 (문자 수신 동의 후 별도 수집 예정) <input id="mobileNumber" type="tel" autocomplete="off" placeholder="현재 수집하지 않습니다" disabled></label>
+</div>
+<div class="consent"><input type="checkbox" id="termsConsent" aria-describedby="termsInfo"><div>
+<label for="termsConsent"><strong><span class="required">[필수]</span> 서비스 이용약관 확인 및 동의</strong></label>
+<p id="termsInfo">계정과 서비스의 이용 범위·책임·탈퇴·분쟁 처리 등 운영 정책을 별도로 정하고 동의를 받습니다.</p>
+<details id="terms"><summary>이용약관 초안 범위 펼쳐보기</summary><p>계정 이용조건·서비스 제공 범위·신고 및 탈퇴·제한 및 이의신청·분쟁 연락처와 관할 등을 운영자가 확정해야 합니다. 이 화면은 최종 약관이 아니며 법적 효력이 있는 가입 절차가 아닙니다.</p></details>
+</div></div>
+<div class="consent"><input type="checkbox" id="privacyConsent" aria-describedby="privacyInfo"><div>
+<label for="privacyConsent"><strong><span class="required">[필수 · 향후 가입 목적]</span> 개인정보 수집·이용 동의</strong></label>
+<p id="privacyInfo">계정 식별·로그인·계정 복구를 위한 최소 정보만 계획합니다. 목적·항목·보유기간·거부 시 영향을 최종 안내문에 고지해야 합니다.</p>
+<details id="privacy"><summary>개인정보 수집·이용 안내 초안 펼쳐보기</summary>
+<ul><li>예정 목적: 회원 식별·인증·계정 보안 및 고객지원</li><li>예정 항목: 이메일 계정, 인증 관련 메타데이터 (비밀번호 원문 저장 금지)</li><li>보유·이용기간: 운영 정책과 법적 보존 의무 검토 후 확정</li><li>동의 거부 시: 회원 계정 기반 기능 이용 불가, 무료 합성 HTML 데모는 계속 이용 가능</li><li>처리자·수탁자·국외 이전·개인정보 보호책임자·문의처: 운영 전 실제 사업자 정보 확인 필요</li></ul>
+<p>필요 정보의 처리가 계약 이행 등 다른 법적 근거로 가능한지까지 검토하고, 동의가 법적 근거인 항목만 별도 동의를 받도록 최종 조정해야 합니다.</p>
+</details>
+</div></div>
+<div class="consent"><input type="checkbox" id="marketingUseConsent" aria-describedby="marketingInfo"><div>
+<label for="marketingUseConsent"><strong><span class="optional">[선택]</span> 이벤트·상품 안내 목적의 개인정보 이용 동의</strong></label>
+<p id="marketingInfo">마케팅 목적 이용 동의는 서비스 가입 조건이 아닙니다. 거부해도 계정 기능 제한이 없어야 합니다.</p>
+<details><summary>마케팅 이용 범위 펼쳐보기</summary><p>광고 내용·사용할 개인정보 항목·보유기간과 철회 경로를 별도로 확정해야 합니다. 지금은 어떤 광고 정보도 전송하지 않습니다.</p></details>
+</div></div>
+<div class="consent"><input type="checkbox" id="smsConsent" aria-describedby="smsInfo"><div>
+<label for="smsConsent"><strong><span class="optional">[선택]</span> 광고성 문자(SMS) 수신 동의</strong></label>
+<p id="smsInfo">광고 문자 수신은 별도의 선택 사항이에요. 기본 미동의이며, 거부해도 서비스 이용이나 구매에 불이익이 없어야 합니다.</p>
+<details><summary>광고성 문자 동의·철회 안내 펼쳐보기</summary><p>전송자 정보, 광고 목적·발송 시간·무료 수신거부 방법, 처리결과 통지와 정기 수신동의 확인 등 법적 요건을 실운영 전에 점검해야 합니다. 전화번호는 SMS 수신 동의와 별도로 필요한 처리 근거·안내를 충족한 뒤에만 수집합니다.</p></details>
+</div></div>
+<div class="action">
+<div class="controls"><button id="reviewConsent" class="btn secondary" type="button">필수·선택 동의 구분 확인</button><button id="createAccount" class="btn" type="button" disabled>실제 회원가입 준비 중</button></div>
+<p class="message" id="consentStatus" role="status" aria-live="polite">체크박스는 모두 미선택 상태로 시작합니다. 선택값은 저장되거나 서버로 전송되지 않습니다.</p>
+</div>
+</section>
+<aside class="panel">
+<div class="kicker">02 / SECURITY AND LEGAL READINESS</div><h2>가입 출시 전 확인할 것</h2>
+<ol class="steps"><li>실제 운영 주체와 책임자, 연락처·개인정보처리방침 확정</li><li>검증된 로그인/이메일 인증·비밀번호 정책·계정 탈퇴 구현</li><li>인증 및 권한 검증, 속도 제한, 보안 로그·개인정보 최소화</li><li>필수·선택 동의의 문서 버전·시각·채널별 변경·철회 증거를 서버에서 보관</li><li>광고 SMS 발송 사업자 요건·철회 채널 검증 및 재동의 절차</li><li>결제 승인/취소는 반드시 검증된 주문 서버와 PG에서 처리</li></ol>
+<p class="note">동의 체크 여부만으로 개인정보 처리의 적법성이나 서비스의 보안성을 보증할 수는 없습니다. 실제 가입·결제·문자 발송은 출시 심사와 승인 이후에만 활성화됩니다.</p>
+<a class="back" href="launch.html">회원가입 없이 무료 합성 데모 사용하기</a>
+</aside></div>
+</main><footer><div class="wrap">GameFit · 본 화면은 동의 UX 사전검증용이며 회원정보를 실제로 수집하거나 저장하지 않습니다.</div></footer>
+<script>
+"use strict";
+const required=["termsConsent","privacyConsent"];
+const optional=["marketingUseConsent","smsConsent"];
+const status=document.getElementById("consentStatus");
+document.getElementById("reviewConsent").addEventListener("click",()=>{
+ const ok=required.every(id=>document.getElementById(id).checked);
+ const yes=optional.filter(id=>document.getElementById(id).checked);
+ if(!ok){status.textContent="필수 약관·개인정보 항목이 아직 선택되지 않았어요. 선택 광고 동의는 가입 조건이 아닙니다.";return;}
+ if(document.getElementById("smsConsent").checked && !document.getElementById("marketingUseConsent").checked){
+  status.textContent="광고 문자 수신과 마케팅 목적 개인정보 이용은 별개의 동의예요. 문자 발송에는 각각의 적법한 동의가 필요하며 이 화면은 어떤 문자도 보내지 않습니다.";return;
+ }
+ status.textContent="필수 항목 구분 확인 완료. 선택한 광고 동의 "+yes.length+"개. 다만 실제 회원가입은 비활성화되어 있고 어떠한 정보도 저장·전송되지 않습니다.";
+});
+</script></body></html>

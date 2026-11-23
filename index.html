@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e15">
+  <meta name="description" content="GameFit — 단순한 FPS 상승이 아니라 재현 가능한 PC 게임 성능 비교. Windows 포터블 베타와 첫 측정 리허설.">
+  <title>GameFit — Trust what your frames tell you.</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GameFit · Performance you can question.">
+  <meta property="og:description" content="프레임 데이터의 차이보다, 그 차이를 믿을 이유를 먼저.">
+  <style>
+    :root {
+      color-scheme:dark;
+      --bg:#080e15;--panel:#101b24;--panel2:#14232a;--line:#2d414c;
+      --fg:#f4f6f3;--muted:#a5b7bd;--subtle:#80959d;
+      --lime:#c6f781;--lime2:#ecffc9;--peach:#dfbea2;
+      --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.7 var(--font)}
+    body::before{content:"";position:fixed;pointer-events:none;inset:0;background:linear-gradient(90deg,transparent 0 49.95%,rgba(255,255,255,.009) 50%,transparent 50.05%);background-size:76px 76px;z-index:-1}
+    a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+    .wrap{width:min(1210px,calc(100% - 56px));margin-inline:auto}
+    .top{border-bottom:1px solid #263841;position:sticky;top:0;z-index:20;background:rgba(8,14,21,.93);backdrop-filter:blur(16px)}
+    .topbar{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.06em;font-size:24px;white-space:nowrap}
+    .brandmark{display:grid;place-items:center;width:37px;height:37px;background:var(--lime);color:#0b1720;border-radius:9px;transform:rotate(-7deg);font-size:21px}
+    .brandmark span{transform:rotate(7deg)}
+    .mainnav{display:flex;align-items:center;gap:32px;font-size:13px;font-weight:700;color:#a9bbc0}
+    .mainnav a:hover{color:var(--lime)}
+    .navdownload{font-size:12px;font-weight:850;padding:11px 17px;border-radius:8px;color:#162010;background:var(--lime)}
+    .navdownload:hover{background:#e5ffbf}
+    .eyebrow{font-size:11px;letter-spacing:.15em;font-weight:900;text-transform:uppercase;color:var(--lime)}
+    .eyebrow:before{content:"";display:inline-block;width:21px;height:1px;background:var(--lime);vertical-align:middle;margin-right:12px}
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid #293b43;background:radial-gradient(ellipse at 74% 35%,rgba(146,210,142,.065),transparent 45%)}
+    .hero .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.98fr);gap:70px;align-items:center;padding-block:96px 109px}
+    h1{font-size:clamp(46px,5.5vw,76px);font-weight:900;line-height:1.18;letter-spacing:-.078em;margin:23px 0 25px;word-break:keep-all}
+    h1 em{font-style:normal;color:var(--lime)}
+    .lead{max-width:480px;color:#b2c5c7;font-size:16px;line-height:1.95;word-break:keep-all}
+    .actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:36px}
+    .btn{min-height:49px;display:inline-flex;align-items:center;justify-content:center;gap:13px;font-size:13px;font-weight:850;padding:13px 20px;border-radius:9px;border:1px solid #5a6b71;transition:transform .16s,border-color .16s,background .16s}
+    .btn:hover{transform:translateY(-2px);border-color:var(--lime)}
+    .btn-primary{color:#12230e;background:var(--lime);border-color:var(--lime)}
+    .btn-primary:hover{background:#dfffaa}
+    .btn-outline{color:#f0f5f1;background:rgba(255,255,255,.025)}
+    .hero-note{font-size:11px;color:#93a9af;margin-top:18px}
+    .hero-foot{display:flex;align-items:center;gap:11px;font-size:11px;color:#a2b6bc;margin-top:48px}
+    .hero-foot b{color:var(--lime);font-size:12px}
+    .mini-dot{width:6px;height:6px;background:var(--lime);border-radius:50%;box-shadow:0 0 15px rgba(198,247,129,.65)}
+    .dash{box-shadow:0 48px 100px rgba(0,0,0,.47),0 0 0 1px rgba(215,249,184,.13);border:1px solid #3b5560;background:#101d28;border-radius:16px;overflow:hidden;min-width:0}
+    .dashbar{min-height:53px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #2b3e4b;background:#15242f}
+    .dash-brand{font-weight:900;font-size:12px;letter-spacing:-.04em}
+    .dash-brand span{color:var(--lime)}
+    .dash-state{display:inline-flex;align-items:center;gap:7px;color:#bacbd0;font-size:10px;letter-spacing:.08em}
+    .dash-state:before{content:"";width:6px;height:6px;background:var(--lime);border-radius:50%}
+    .dashbody{padding:22px}
+    .dashnav{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:10px;color:#a8b9c0}
+    .dashnav strong{color:#f0f6ee;letter-spacing:.05em;font-size:12px}
+    .dashchip{border:1px solid #56744c;color:#c4efa6;padding:4px 8px;border-radius:5px;font-size:9px}
+    .metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+    .metric{background:#162934;border:1px solid #324c58;border-radius:9px;min-height:99px;padding:15px}
+    .metric span{display:block;color:#a1b6bd;font-size:10px}
+    .metric strong{display:block;font-size:22px;line-height:1.35;margin-top:13px;letter-spacing:-.055em}
+    .metric b{font-size:11px;color:var(--lime)}
+    .chartbox{margin-top:13px;border:1px solid #324753;border-radius:9px;background:#11212c;padding:16px 16px 11px}
+    .charttitle{display:flex;justify-content:space-between;gap:10px;color:#e8f2ef;font-size:11px;font-weight:750}
+    .charttitle span{font-size:10px;color:#9eb2b9;font-weight:500}
+    .chart{width:100%;display:block;aspect-ratio:460/165;margin:12px 0}
+    .chartgrid{stroke:#334853;stroke-width:.65}
+    .curve-base{stroke:#617d88;stroke-width:2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+    .curve-after{stroke:var(--lime);stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
+    .chartlegend{display:flex;align-items:center;gap:16px;font-size:10px;color:#acbfc2}
+    .chartlegend i{display:inline-block;width:20px;height:2px;vertical-align:middle;margin-right:6px;background:#617d88}
+    .chartlegend .candidate i{background:var(--lime)}
+    .dashfooter{display:flex;gap:8px;align-items:center;justify-content:space-between;background:#142530;border-top:1px solid #354953;padding:14px 19px;color:#abbec5;font-size:10px}
+    .dashfooter b{color:#d2edbe;font-size:10px}
+    .stripe{border-bottom:1px solid #2a3a43;background:#0e1720}
+    .striperow{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:19px;color:#a0b1b8;font-size:10px;font-weight:900;letter-spacing:.1em}
+    .striperow span{display:flex;align-items:center;gap:10px}
+    .striperow span:before{content:"+";font-weight:900;color:var(--lime);font-size:18px}
+    .section{padding-block:112px;border-bottom:1px solid #2b3a44}
+    .sectionhead{display:grid;grid-template-columns:1fr .65fr;gap:45px;align-items:end;margin-bottom:43px}
+    h2{font-size:clamp(32px,4vw,49px);line-height:1.25;letter-spacing:-.065em;margin:20px 0 0;word-break:keep-all}
+    .sectionlead{color:#a6bac0;font-size:14px;line-height:1.95;max-width:460px;justify-self:end}
+    .stepgrid,.featuregrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .stepcard,.feature{border:1px solid #314751;background:#101d28;border-radius:13px;padding:28px;min-width:0;position:relative}
+    .stepcard{min-height:248px;display:flex;flex-direction:column}
+    .stepindex{color:var(--lime);font:850 12px/1.5 system-ui;letter-spacing:.08em}
+    .stepcard h3,.feature h3{font-size:21px;line-height:1.4;letter-spacing:-.045em;margin:27px 0 11px}
+    .stepcard p,.feature p{color:#a8bcc1;font-size:13px;line-height:1.85;margin:0}
+    .stepcard a{color:var(--lime);font-weight:800;font-size:12px;margin-top:auto;padding-top:20px;display:inline-block}
+    .sectionalt{background:#0d1821}
+    .featuregrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .feature{min-height:188px;padding:30px}
+    .feature h3{margin:0 0 14px;font-size:22px}
+    .feature .label{color:var(--lime);font-size:10px;letter-spacing:.11em;font-weight:850}
+    .feature p{max-width:480px}
+    .editorial{padding-block:100px;background:radial-gradient(ellipse at left,rgba(155,207,127,.055),transparent 60%);border-bottom:1px solid #2b3a44}
+    .editorial-inner{display:grid;grid-template-columns:190px 1fr;gap:60px;align-items:start}
+    .editorial aside{font-size:11px;font-weight:900;color:var(--lime);letter-spacing:.1em}
+    .editorial blockquote{font-size:clamp(28px,3.5vw,46px);letter-spacing:-.06em;line-height:1.4;margin:0;font-weight:800;max-width:850px}
+    .editorial blockquote em{font-style:normal;color:var(--lime)}
+    .editorial p{color:#9fb2b9;font-size:13px;margin:28px 0 0}
+    .download{padding-block:114px 120px;background:linear-gradient(140deg,#101c25,#0b131c)}
+    .downloadgrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+    .downloadlead{color:#a8bdc2;line-height:1.9;font-size:14px;max-width:410px}
+    .downloadbox{background:#142630;border:1px solid #4c6959;border-radius:17px;overflow:hidden;box-shadow:0 30px 75px rgba(0,0,0,.22)}
+    .downloadmain{padding:28px 31px}
+    .release-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .release-top strong{font-size:23px;letter-spacing:-.06em}
+    .status{border:1px solid #76966c;border-radius:99px;padding:4px 11px;color:var(--lime);font-size:10px;font-weight:900;white-space:nowrap}
+    .release-meta{display:flex;gap:10px;flex-wrap:wrap;color:#b8cbd0;font-size:11px;margin:16px 0 23px}
+    .release-meta span{border:1px solid #456070;border-radius:6px;padding:5px 9px}
+    .downloadmain .btn{width:100%;justify-content:space-between;padding:16px 20px;font-size:14px}
+    .downloadhint{font-size:11px;color:#bbcad0;line-height:1.9;margin:14px 0 0}
+    .downloadsteps{background:#10202a;padding:19px 31px;border-top:1px solid #35505a}
+    .downloadsteps h3{font-size:12px;letter-spacing:.04em;margin:0 0 13px}
+    .downloadsteps ol{padding-left:20px;margin:0;display:grid;gap:6px;font-size:12px;color:#bbccce}
+    .safety{padding:27px 0;border-top:1px solid #324953;color:#b8cbd0;font-size:12px;line-height:1.9}
+    .safety strong{color:#e9f2ed}
+    .faq{padding-block:90px;border-bottom:1px solid #2b3a44}
+    .faq-grid{display:grid;grid-template-columns:.65fr 1.35fr;gap:60px}
+    .faq details{border-bottom:1px solid #334854;padding:19px 0}
+    .faq summary{font-size:14px;font-weight:800;cursor:pointer}
+    .faq details p{color:#a3b8bd;font-size:13px;margin-bottom:0;max-width:680px}
+    footer{padding-block:33px;background:#0a121a}
+    .footrow{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;color:#8399a3;font-size:11px}
+    .footrow b{color:#e7f0e9;font-size:18px;letter-spacing:-.05em}
+    @media(max-width:1060px){.hero .grid{gap:32px}.mainnav{gap:18px}.hero-inner{padding-block:70px}}
+    @media(max-width:830px){.hero .grid,.sectionhead,.downloadgrid,.editorial-inner,.faq-grid{grid-template-columns:1fr;gap:25px}.hero .grid{padding-block:56px 70px}.section,.download{padding-block:75px}.sectionlead{justify-self:start}.editorial{padding-block:70px}.featuregrid{grid-template-columns:1fr}.mainnav{display:none}.dash{max-width:640px}.striperow{flex-wrap:wrap;justify-content:flex-start;column-gap:27px}}
+    @media(max-width:600px){.wrap{width:min(100% - 34px,1210px)}.topbar{min-height:67px}.brand{font-size:21px}.brandmark{width:32px;height:32px}.navdownload{font-size:11px;padding:10px 12px}h1{font-size:clamp(39px,10.7vw,59px)}.stepgrid{grid-template-columns:1fr}.stepcard{min-height:210px}.metric{min-height:92px;padding:11px}.metric strong{font-size:17px}.dashbody{padding:14px}.dashfooter{flex-direction:column;align-items:flex-start}.downloadmain{padding:22px}.downloadsteps{padding:20px}.status{font-size:9px}.release-top strong{font-size:19px}.striperow{gap:10px;font-size:9px}.hero-foot{margin-top:28px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
+  
+    /* E17 editorial refinements — informative, accessible, and product-specific. */
+    .topbar{min-height:83px}
+    .mainnav{gap:22px}
+    .mainnav a[href="launch.html"],.mainnav a[href="plans.html"]{color:#dbe9da}
+    .hero{background:radial-gradient(ellipse at 72% 25%,rgba(198,247,129,.105),transparent 42%),radial-gradient(ellipse at 11% 90%,rgba(76,116,141,.10),transparent 39%),#0b141b}
+    .hero .grid{gap:52px}
+    .hero h1{max-width:660px}
+    .hero .lead{font-size:17px}
+    .hero .btn-primary{box-shadow:0 12px 40px rgba(139,195,78,.16)}
+    .hero .dash{position:relative;box-shadow:0 25px 90px rgba(0,0,0,.26);transform:translateY(6px)}
+    .hero .dash:before{content:"BETA / RESEARCH BUILD";font-size:10px;letter-spacing:.13em;color:#a7c89c;position:absolute;right:0;top:-30px}
+    .evidence-board{border-block:1px solid #38535b;background:#101d24}
+    .evidence-board .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+    .evidence-cell{padding:25px 27px;border-right:1px solid #32484d;min-width:0}
+    .evidence-cell:first-child{padding-left:0}.evidence-cell:last-child{border-right:0}
+    .evidence-label{display:block;color:var(--lime);font-size:10px;font-weight:900;letter-spacing:.13em;margin-bottom:7px}
+    .evidence-cell strong{font-size:17px;letter-spacing:-.04em}
+    .evidence-cell p{margin:6px 0 0;color:#a9c0c4;font-size:12px;line-height:1.7}
+    .evidence-cell a{color:var(--lime);text-decoration:underline;text-underline-offset:3px}
+    .hero-proof-note{padding:10px 12px;margin-top:19px;background:rgba(205,244,164,.055);border-left:2px solid #94ae75;font-size:12px;color:#c7d8d2}
+    .hero-proof-note strong{color:#e9f6cf}
+    @media(max-width:850px){.evidence-board .wrap{grid-template-columns:1fr}.evidence-cell,.evidence-cell:first-child{padding:17px 0;border-right:0;border-bottom:1px solid #30474d}.evidence-cell:last-child{border-bottom:0}.hero .dash:before{display:none}}
+
+  </style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap topbar">
+    <a class="brand" href="#top" aria-label="GameFit 처음으로"><span class="brandmark"><span>G</span></span>GameFit<span style="font-size:9px;color:var(--lime);letter-spacing:.12em;margin-left:2px">BETA</span></a>
+    <nav class="mainnav" aria-label="주 탐색"><a href="#how-it-works">이용 방식</a><a href="#features">제품 원칙</a><a href="preview.html">데모</a><a href="launch.html">무료 다운로드·출시</a><a href="plans.html">요금제</a><a href="account.html">회원가입 준비</a><a href="checkout.html">결제 도입 안내</a><a href="#download">Windows 베타</a></nav>
+    <a class="navdownload" href="#download">베타 다운로드 <span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<main id="top">
+  <section class="hero">
+    <div class="wrap grid">
+      <div>
+        <div class="eyebrow">Performance, with evidence.</div>
+        <h1>FPS보다 중요한 건,<br><em>믿을 수 있는 변화.</em></h1>
+        <p class="lead">게임 성능을 바꾸기 전에, 정말 달라진 것이 무엇인지 확인하세요. GameFit은 프레임 측정 조건과 반복 실험을 함께 검토하는 Windows 로컬 분석실입니다.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="launch.html">무료 데모 다운로드 <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-outline" href="preview.html">합성 데이터 직접 체험 <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="hero-note">무료 HTML 체험은 누구나 이용 가능 · Windows EXE는 비공개 무서명 개발 베타 · 정식 판매 및 결제 미출시</p>
+        <p class="hero-proof-note"><strong>지금 가능한 것:</strong> 합성 FPS 분석 화면 체험 및 오프라인 HTML 다운로드. 실제 게임 FPS 실측·Pro 유료 판매는 출시 전 검증 중.</p>
+        <div class="hero-foot"><span class="mini-dot"></span><b>LOCAL FIRST</b><span>원본 CSV는 내 PC에서 분석 · 클라우드 업로드 없음</span></div>
+      </div>
+      <div class="dash" aria-label="GameFit 제품 콘셉트 화면. 임의 데이터 시각화이며 실측 성능 기록은 아닙니다.">
+        <div class="dashbar"><span class="dash-brand">Game<span>Fit</span> / PERFORMANCE LAB</span><span class="dash-state">LOCAL ANALYSIS</span></div>
+        <div class="dashbody">
+          <div class="dashnav"><strong>PERFORMANCE / EXPERIMENT 01</strong><span class="dashchip">DESIGN CONCEPT</span></div>
+          <div class="metrics">
+            <div class="metric"><span>BASELINE / A</span><strong>— <b>FPS</b></strong></div>
+            <div class="metric"><span>CANDIDATE / B</span><strong>— <b>FPS</b></strong></div>
+            <div class="metric"><span>CONFIDENCE</span><strong style="font-size:14px;color:var(--lime);letter-spacing:0">PENDING</strong></div>
+          </div>
+          <div class="chartbox">
+            <div class="charttitle">FRAME INTERVAL <span>Illustrative signal / no measured data</span></div>
+            <svg class="chart" viewBox="0 0 460 165" role="img" aria-label="설명용 두 신호 패턴. 실제 프레임 시간 데이터가 아닙니다." preserveAspectRatio="none">
+              <g class="chartgrid"><path d="M0 28H460M0 64H460M0 100H460M0 136H460M58 0V165M138 0V165M218 0V165M298 0V165M378 0V165"/></g>
+              <path class="curve-base" d="M0 95L18 101L31 76L44 89L62 91L81 68L98 95L117 104L131 86L147 97L167 56L185 86L202 108L220 74L234 91L254 99L272 81L287 61L305 92L327 105L345 74L361 92L380 69L398 105L417 85L439 92L460 73"/>
+              <path class="curve-after" d="M0 109L18 107L32 98L49 111L64 107L81 115L99 107L114 104L133 111L146 102L167 109L185 105L202 113L220 107L234 103L253 114L272 107L287 109L305 112L326 105L345 107L360 116L380 105L399 110L418 104L440 112L460 108"/>
+            </svg>
+            <div class="chartlegend"><span><i></i>A / BASELINE</span><span class="candidate"><i></i>B / CANDIDATE</span></div>
+          </div>
+        </div>
+        <div class="dashfooter"><span>실측 측정치 없음 · 화면 구성 예시</span><b>PROVENANCE BEFORE PERFORMANCE</b></div>
+      </div>
+    </div>
+  </section>
+  <section class="evidence-board" aria-label="GameFit 실제 출시 근거와 한계">
+    <div class="wrap">
+      <div class="evidence-cell"><span class="evidence-label">01 / TRY TODAY</span><strong>무료, 비로그인 HTML 체험</strong><p>합성 예시만 제공해요. <a href="launch.html">오프라인 데모 받기</a></p></div>
+      <div class="evidence-cell"><span class="evidence-label">02 / VERIFIED BY CI</span><strong>데이터 형식·반복 테스트</strong><p>자동 테스트 통과는 실제 게임 성능 정확성 인증과 다릅니다.</p></div>
+      <div class="evidence-cell"><span class="evidence-label">03 / SHIPPING POLICY</span><strong>실행파일·Pro 결제 준비 중</strong><p><a href="plans.html">플랜 비교</a> · <a href="verify.html">기존 ZIP 체크섬 안내</a></p></div>
+    </div>
+  </section>
+  <div class="stripe"><div class="wrap striperow"><span>NO ACCOUNT REQUIRED</span><span>MEASUREMENT FIRST</span><span>EXPLAINABLE RESULTS</span><span>NO AUTO PC CHANGES</span></div></div>
+  <section class="section" id="how-it-works">
+    <div class="wrap">
+      <div class="sectionhead">
+        <div><div class="eyebrow">A clearer workflow</div><h2>성능 분석도,<br>시작은 간단해야 하니까.</h2></div>
+        <p class="sectionlead">처음부터 수십 개 파일을 준비할 필요는 없습니다. 첫 CSV의 구조를 확인하고, 조건을 고정한 다음 비교할 가치가 있는 변화만 살펴보세요.</p>
+      </div>
+      <div class="stepgrid">
+        <article class="stepcard"><span class="stepindex">01 / PREPARE</span><h3>파일 하나로 시작</h3><p>첫 측정 리허설에서 CSV 시간 열과 게임 프로세스 구성부터 확인합니다.</p><a href="#download">Windows 로컬 실험실 받기 ↗</a></article>
+        <article class="stepcard"><span class="stepindex">02 / CONTROL</span><h3>조건을 먼저 고정</h3><p>게임·장면·그래픽 설정을 기록하고 동일한 조건의 대조 측정을 준비합니다.</p><a href="preview.html">왜 대조군이 필요할까? →</a></article>
+        <article class="stepcard"><span class="stepindex">03 / REVIEW</span><h3>숫자의 의미까지 확인</h3><p>평균 FPS, 하위 FPS의 방향, 재측정 필요 여부를 각각 설명합니다.</p><a href="#features">검증 원칙 살펴보기 →</a></article>
+      </div>
+    </div>
+  </section>
+  <section class="section sectionalt" id="features">
+    <div class="wrap">
+      <div class="sectionhead"><div><div class="eyebrow">Built for better decisions</div><h2>높은 수치보다,<br>명확한 판단을.</h2></div><p class="sectionlead">잘 측정된 데이터만 비교하고, 부족한 근거는 부족하다고 말합니다. 실험 실패도 다음 행동을 결정하는 정보가 됩니다.</p></div>
+      <div class="featuregrid">
+        <article class="feature"><div class="label">01 / CSV QUALITY</div><h3>측정 파일을 먼저 검사</h3><p>지원할 수 없는 시간 열을 FPS로 계산하지 않고, 서로 다른 프로세스의 데이터는 분리합니다.</p></article>
+        <article class="feature"><div class="label">02 / CONTROL STUDY</div><h3>바꾸지 않아도 변하는 FPS</h3><p>동일 설정의 A/A 대조군을 먼저 살펴 자연 변동과 설정 변경의 효과를 구분하려 합니다.</p></article>
+        <article class="feature"><div class="label">03 / EXPERIMENT DESIGN</div><h3>계획을 남기고 다시 검토</h3><p>A-B-B-A 순서와 단일 설정 변경 원칙으로 반복 측정을 관리합니다. 사전 시각을 인증하지는 않습니다.</p></article>
+        <article class="feature"><div class="label">04 / HUMAN RESULT</div><h3>결과 다음의 행동까지</h3><p>관측된 변화, 증거의 한계, 다음 단계 세 줄 요약과 오류별 복구 경로를 제공합니다.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="editorial">
+    <div class="wrap editorial-inner"><aside>WHY WE BUILT THIS</aside><div><blockquote>보여주기 좋은 숫자보다,<br><em>의심해 볼 수 있는 증거.</em></blockquote><p>GameFit은 게임을 자동 최적화하거나 실제 성능 향상을 보장하지 않습니다. 비교할 수 있는 상황인지 먼저 확인하는 도구입니다.</p></div></div>
+  </section>
+  <section class="download" id="download">
+    <div class="wrap downloadgrid">
+      <div><div class="eyebrow">Windows beta · portable</div><h2>이제 내 PC에서,<br>직접 확인하세요.</h2><p class="downloadlead">Windows용 실행파일을 ZIP 형태로 만들고 테스트하는 개발 버전입니다. 설치 마법사나 관리자 권한 없이 실행하는 포터블 형태이며, 첫 리허설부터 ABBA 결과까지 로컬 브라우저에서 열립니다.</p><p class="downloadlead" style="font-size:12px;color:#cad6d4">코드 서명이 없는 실험용 빌드입니다. Windows 보안 경고가 나오면 무리해서 실행하지 말고 빌드 출처와 SHA-256을 확인하세요.</p></div>
+      <div class="downloadbox">
+        <div class="downloadmain">
+          <div class="release-top"><strong>GameFit Windows Beta</strong><span class="status">OWNER TEST BUILD</span></div>
+          <div class="release-meta"><span>v0.10.0-beta.1</span><span>Windows x64</span><span>Portable ZIP</span><span>Unsigned</span></div>
+          <a class="btn btn-primary" href="https://github.com/minje20221228/gamefit-site/releases/tag/v0.10.0-beta.1" target="_blank" rel="noopener noreferrer">GitHub 프리릴리스에서 ZIP 받기 <span aria-hidden="true">↗</span></a>
+          <div class="actions" style="margin-top:13px"><a class="btn btn-outline" href="verify.html">받은 ZIP SHA-256 검사하기 →</a><a class="btn btn-outline" href="https://github.com/minje20221228/gamefit-site/releases/download/v0.10.0-beta.1/SHA256SUMS.txt" target="_blank" rel="noopener noreferrer">원본 체크섬 보기 ↗</a></div>
+          <div class="actions" style="margin-top:12px"><a href="launch.html" class="btn btn-outline">무료 합성 데모 HTML 다운로드 →</a><a href="checkout.html" class="btn btn-outline">결제수단 도입 현황 보기 →</a></div>
+          <p class="downloadhint">저장소 소유자·읽기 권한이 있는 사용자만 다운로드할 수 있습니다. GitHub의 비공개 프리릴리스 <strong>v0.10.0-beta.1</strong>에서 <strong>Assets → GameFit-Windows-Portable-v0.10.0-beta-unsigned.zip</strong>을 선택하세요. 없는 경우 배포가 아직 완료되지 않은 상태입니다.</p>
+        </div>
+        <div class="downloadsteps"><h3>ZIP을 받았다면</h3>
+          <ol><li>GitHub에 로그인하여 프리릴리스 Assets에서 ZIP 다운로드</li><li><a href="verify.html" style="text-decoration:underline;color:var(--lime)">받은 ZIP을 브라우저에서 검사</a>해 SHA-256과 파일명을 확인</li><li>ZIP 압축을 풀어 GameFit-Beta 폴더 확인</li><li>GameFit-Beta 폴더에서 GameFit-Beta.exe 실행</li><li>브라우저가 열리면 첫 CSV 리허설 또는 합성 샘플로 시작</li></ol>
+        </div>
+        <div class="safety" style="padding:20px 31px"><strong>확인:</strong> 정식 설치파일·결제 미출시. 실제 Windows 게임 측정·통계 판정의 현실 정확성 및 코드 서명은 아직 검증되지 않았습니다. 포터블 베타는 비공개 GitHub 프리릴리스로 제공되며 일반 대중에게 공개 배포되지 않습니다.</div>
+      </div>
+    </div>
+  </section>
+  <section class="faq"><div class="wrap faq-grid"><div><div class="eyebrow">Good to know</div><h2>설치하기 전에<br>궁금한 것들.</h2></div><div>
+    <details><summary>GitHub에 로그인해야 다운로드할 수 있나요?</summary><p>네. 현재는 비공개 저장소의 개발용 아티팩트이며, 저장소 읽기 권한을 가진 사용자만 내려받을 수 있습니다. 일반 대중에게 배포하는 정식 설치파일은 아닙니다.</p></details>
+    <details><summary>GameFit이 게임 설정을 자동으로 바꾸나요?</summary><p>아니요. CPU·GPU 설정을 변경하거나 시스템을 자동 최적화하지 않습니다. 로컬 CSV 측정 데이터를 분석하는 프로그램입니다.</p></details>
+    <details><summary>측정 파일이 서버로 전송되나요?</summary><p>포터블 실행기를 통해 브라우저와 내 PC의 127.0.0.1 FastAPI 서버 사이에서만 처리됩니다. GameFit 자체에는 클라우드 업로드 기능이 없습니다.</p></details>
+    <details><summary>정확한 FPS 개선이 인증되나요?</summary><p>아니요. 분석 엔진은 데이터 조건을 검토하고 잠정적인 관측을 보여줍니다. 결과를 실제 성능 향상의 확정 근거나 공인 측정으로 해석하면 안 됩니다.</p></details>
+  </div></div></section>
+</main>
+<footer><div class="wrap footrow"><b>GameFit<span style="color:var(--lime)">.</span></b><span>Windows beta · evidence first · 로컬 실험 도구</span><span>© 2026 GameFit. Built for questions worth measuring.</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "format": "gamefit-static-bundle-v1",
+  "release": "FREE_SYNTHETIC_DEMO_ONLY",
+  "windows_binary_included": false,
+  "payment_api_included": false,
+  "anonymous_html_download": "preview.html",
+  "files": {
+    "account.html": {
+      "sha256": "f60d757e9aa565cc3d919d8319690e6ab40409f76cefdd1580ea88b2a9864d77",
+      "size": 12062
+    },
+    "checkout.html": {
+      "sha256": "079dcaa0fded019e502ffb3c88cdd2f8771949ef78cafd3d0a356a5bd1aa66f2",
+      "size": 9055
+    },
+    "download-check.html": {
+      "sha256": "70802ccca82af93a4872d8adc457e6140274208e2fb0eb01526e7f3aadc72d78",
+      "size": 10922
+    },
+    "index.html": {
+      "sha256": "50b41be7aa7cfe215e11768afe0d55c7a6fc45bfc96207f817d831eab6a7856d",
+      "size": 27673
+    },
+    "launch.html": {
+      "sha256": "53b76c9ce2581a8d11f353a69823603a3fd39e2a2739e5391d2625448cabc395",
+      "size": 8146
+    },
+    "plans.html": {
+      "sha256": "098e6346c073257418fc61f2f6b7a7b9e4214b0b7b074f66821aa713f05ed22e",
+      "size": 7800
+    },
+    "preview.html": {
+      "sha256": "8f8fdc0c857132d9cd91fa79fac57bdaeb4a1d5821b52d3f2d9807d2890d8339",
+      "size": 8606
+    },
+    "verify.html": {
+      "sha256": "d50e3ba1e32be3ceb5a0235811779dc3bb0734cd6bdc1d7202a9d6753e7d2e2f",
+      "size": 10440
+    }
+  }
+}

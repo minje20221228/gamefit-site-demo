@@ -1,0 +1,93 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="GameFit 카드·간편결제·계좌이체 도입 준비 현황. 실제 결제·주문·청구는 활성화되어 있지 않습니다.">
+<meta name="theme-color" content="#090f16"><title>GameFit — 결제수단 준비 현황</title>
+<style>
+:root{color-scheme:dark;font:15px/1.7 system-ui,-apple-system,"Malgun Gothic",sans-serif;color:#f1f5f1;background:#09121b;--a:#c6f781;--line:#3b5360;--muted:#b1c3c7}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.wrap{width:min(1060px,calc(100% - 42px));margin:auto}header{border-bottom:1px solid var(--line);background:#0d1c26}
+nav{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:15px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:23px;letter-spacing:-.07em;text-decoration:none}.logo span{color:var(--a)}
+nav .links{display:flex;gap:19px;flex-wrap:wrap;font-size:12px;color:#c4d5d5}
+main{padding:75px 0 110px}.eyebrow{font-size:11px;color:var(--a);font-weight:900;letter-spacing:.14em}
+h1{font-size:clamp(35px,5.6vw,63px);line-height:1.2;letter-spacing:-.065em;margin:17px 0 25px}h1 em{font-style:normal;color:var(--a)}
+.lead{font-size:16px;max-width:790px;color:#b4c8c8}h2{font-size:25px;letter-spacing:-.045em}
+.intro{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin:26px 0 35px}.status{color:#f4d7a6;border:1px solid #8d745b;border-radius:30px;padding:6px 13px;font-size:11px;font-weight:900}
+.cols{display:grid;grid-template-columns:1.3fr .7fr;gap:18px}.panel{border:1px solid var(--line);border-radius:16px;background:#152530;padding:28px}
+.methods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.method{background:#0d202b;border:1px solid #405969;border-radius:10px;color:#ecf3ef;padding:17px;text-align:left;font:inherit;font-size:13px;cursor:pointer}
+.method[aria-pressed=true]{border:2px solid var(--a);background:#1b332c}
+.method strong{display:block;font-size:15px}.method small{display:block;font-size:11px;color:#abc0c5;margin-top:8px}
+.method:focus-visible{outline:3px solid var(--a)}
+.explain{border:1px solid #4e6d62;background:#102d2b;padding:17px;border-radius:11px;color:#dbe7e2;font-size:13px;min-height:106px}
+.action{margin-top:25px;display:grid;gap:9px}
+.action button{border:0;border-radius:9px;background:#657367;color:#e1e8de;padding:15px 20px;font-size:13px;font-weight:900;cursor:not-allowed}
+.note{color:#b4c5c9;font-size:12px}.panel aside{font-size:12px;color:#b3c5c9}
+.rule{border-bottom:1px solid #334c55;padding:13px 0;font-size:13px;display:flex;justify-content:space-between;gap:12px}.rule b{color:#f0d4ad}
+.btn{display:inline-flex;text-decoration:none;background:var(--a);color:#18250e;border-radius:8px;padding:12px 18px;font-weight:850;font-size:13px}
+footer{border-top:1px solid var(--line);padding:28px 0;color:#9cb2ba;font-size:12px}
+@media(max-width:770px){.cols{grid-template-columns:1fr}.methods{grid-template-columns:1fr}main{padding:42px 0}.panel{padding:20px}}
+
+/* E17 checkout design clarity: a payment concept page, never a checkout. */
+body{background:radial-gradient(ellipse at 80% 4%,rgba(195,244,142,.08),transparent 34%),#08121a}
+header{background:rgba(13,28,38,.96);backdrop-filter:blur(14px);position:sticky;top:0;z-index:3}
+.panel{box-shadow:0 24px 62px rgba(0,0,0,.13)}
+.method{transition:border-color .18s ease,background .18s ease}
+.method:hover{border-color:#b3d097}
+.method[aria-pressed=true]{outline:2px solid rgba(198,247,129,.15);outline-offset:-4px}
+.explain{line-height:1.9}
+#payButton{display:block;width:100%;opacity:.8}
+@media(prefers-reduced-motion:reduce){.method{transition:none}}
+
+</style></head><body>
+<header><nav class="wrap"><a class="logo" href="index.html">Game<span>Fit.</span></a><div class="links"><a href="index.html">제품 소개</a><a href="launch.html">다운로드 안내</a><a href="plans.html">무료·Pro 플랜</a><a href="account.html">회원가입·동의 안내</a></div></nav></header>
+<main class="wrap">
+<div class="eyebrow">PAYMENTS / PRE-LAUNCH · NO CHARGES</div>
+<h1>결제 방식은 준비하되,<br><em>결제는 아직 받지 않습니다.</em></h1>
+<p class="lead">게임 성능 분석 도구의 유료 라이선스를 검토하고 있어요. 결제 서비스 계약·판매 가격·주문 원장·취소 및 환불 조건이 확인되기 전까지 실제 돈이 청구되는 버튼은 만들지 않습니다.</p>
+<div class="intro"><span class="status">결제 비활성화 · PG 미연결</span><span class="note">가격 미정 · 구매 불가 · 주문 발행 없음 · 카드정보 입력 없음</span></div>
+<p class="note" style="border-top:1px solid #3b554d;border-bottom:1px solid #3b554d;padding:12px 0;margin:0 0 24px">TRANSACTION SAFETY · 선택하는 수단은 결제 흐름의 소개일 뿐, 주문이 발행되거나 결제사로 정보가 전송되지 않습니다.</p>
+<div class="cols">
+<section class="panel">
+<div class="eyebrow">PAYMENT METHOD DESIGN</div><h2>검토 중인 결제수단</h2><p class="note">아래 카드를 눌러 각 결제 방식의 도입 조건을 확인할 수 있어요. 결제창은 열리지 않습니다.</p>
+<div class="methods" role="group" aria-label="결제 도입 예정 수단">
+<button class="method" data-method="card" aria-pressed="true" type="button"><strong>신용·체크카드</strong><small>카드사 심사 및 PG 계약 필요</small></button>
+<button class="method" data-method="wallet" aria-pressed="false" type="button"><strong>간편결제</strong><small>PG에서 사용 가능 서비스 확인</small></button>
+<button class="method" data-method="transfer" aria-pressed="false" type="button"><strong>계좌이체</strong><small>계좌이체 승인·검증 필요</small></button>
+</div>
+<div id="methodExplanation" role="status" aria-live="polite" class="explain">카드 결제를 제공하려면 실제 상점 등록과 카드사 심사, 승인된 결제 상품, 서버의 금액 검증이 필요해요. 현재 카드 결제는 활성화되지 않았어요.</div>
+<div class="action">
+<button id="payButton" disabled type="button">PG 승인 전 · 결제 불가</button>
+<div class="note">결제 버튼은 실제 결제 원장이 연결되고 서버 승인 테스트를 통과할 때까지 비활성화됩니다. 체험만 하려면 무료 데모를 사용해 주세요.</div>
+</div>
+<div style="margin-top:20px"><a href="launch.html" class="btn">무료 합성 데모로 돌아가기 →</a></div>
+</section>
+<aside class="panel">
+<div class="eyebrow">CHECKOUT SAFETY GATE</div>
+<h2>활성화 전 검증</h2>
+<div class="rule"><span>판매 가격·라이선스 조건</span><b>미확정</b></div>
+<div class="rule"><span>PG 상점 심사·테스트 키</span><b>미연결</b></div>
+<div class="rule"><span>서버 주문·금액 검증</span><b>미구현</b></div>
+<div class="rule"><span>결제 최종 승인·대사</span><b>미구현</b></div>
+<div class="rule"><span>취소·환불·고객지원</span><b>정책 필요</b></div>
+<div class="rule"><span>상업 이용 가능한 호스팅</span><b>미확인</b></div>
+<p class="note" style="margin-top:24px">토스페이먼츠는 카드·간편결제·계좌이체 등 여러 수단을 제공하지만, 실제 지원 여부는 상점 계약과 결제 UI 설정에 달려 있어요. 테스트 환경과 실제 청구는 구분해 검증해야 합니다.</p>
+<a href="https://docs.tosspayments.com/guides/v2/payment-widget/integration" target="_blank" rel="noopener noreferrer" class="btn" style="background:transparent;border:1px solid #71898d;color:#d9e8e5">공식 PG 연동 문서 확인 ↗</a>
+</aside>
+</div>
+</main>
+<footer><div class="wrap">GameFit · 계획 중인 결제수단에 관한 설명 화면입니다. 개인정보·카드번호·결제정보를 수집하거나 청구하지 않습니다.</div></footer>
+<script>
+"use strict";
+const descriptions={
+ card:"카드 결제를 제공하려면 실제 상점 등록과 카드사 심사, 승인된 결제 상품, 서버의 금액 검증이 필요해요. 현재 카드 결제는 활성화되지 않았어요.",
+ wallet:"간편결제는 해당 PG 계약과 상점 설정에서 제공 가능한 수단에 따라 달라져요. 현재 카카오페이·토스페이 등 특정 수단을 사용할 수 있다고 보장하지 않아요.",
+ transfer:"계좌이체는 PG 심사와 서버의 주문·입금·상태 검증이 필요해요. 가상계좌의 발급만으로 결제를 완료 처리하지 않아요."
+};
+for(const button of document.querySelectorAll("[data-method]")){
+ button.addEventListener("click",()=>{
+  for(const other of document.querySelectorAll("[data-method]"))other.setAttribute("aria-pressed",String(other===button));
+  document.getElementById("methodExplanation").textContent=descriptions[button.dataset.method]||"미지원 결제 방식";
+ });
+}
+</script></body></html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080e15">
+<meta name="description" content="GameFit Windows Beta ZIP SHA-256 로컬 무결성 검사. 파일은 브라우저 밖으로 업로드되지 않습니다.">
+<meta name="gamefit-release-tag" content="v0.10.0-beta.1">
+<meta name="gamefit-release-zip" content="GameFit-Windows-Portable-v0.10.0-beta-unsigned.zip">
+<meta name="gamefit-release-sha256" content="fdfbc0a7edd3633bad93d5e2883e39d8ef5f936ffa68213818b9eb9cc39d6b0c">
+<meta name="gamefit-release-commit" content="7d6e52b6fa550ab0738d9b05512e8b93aa35b6d4">
+<title>GameFit — 받은 파일 확인하기</title>
+<style>
+:root{color-scheme:dark;--bg:#080e15;--fg:#f1f6f3;--muted:#b0c4c7;--accent:#c6f781;--line:#3b535e;font:15px/1.8 system-ui,-apple-system,"Malgun Gothic",sans-serif;background:var(--bg);color:var(--fg)}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{width:min(1020px,calc(100% - 40px));margin:auto}.nav{padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.logo{font-size:22px;letter-spacing:-.06em;font-weight:900;text-decoration:none}.logo span{color:var(--accent)}.nav a:not(.logo){font-size:12px;color:#d2e1df;text-decoration:none}
+main{padding:68px 0 95px}.eyebrow{color:var(--accent);font-size:11px;font-weight:900;letter-spacing:.15em}
+h1{font-size:clamp(37px,6vw,65px);line-height:1.22;letter-spacing:-.07em;margin:16px 0 20px}h1 em{color:var(--accent);font-style:normal}
+p{color:var(--muted);max-width:770px}.lead{font-size:17px}.panels{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:35px}
+.card{border:1px solid var(--line);background:#13242e;border-radius:17px;padding:28px;min-width:0}.card h2{font-size:22px;margin:0 0 16px;letter-spacing:-.035em}
+label{display:block;font-size:13px;font-weight:850;margin-bottom:9px}
+input{width:100%;background:#0d1b25;border:1px dashed #759084;color:#e8f4ec;border-radius:9px;padding:17px;font:inherit;font-size:12px}
+.button{display:inline-flex;justify-content:center;align-items:center;padding:13px 19px;background:var(--accent);border:1px solid var(--accent);border-radius:9px;color:#16250e;text-decoration:none;font-size:13px;font-weight:900;cursor:pointer}
+.button:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:18px 0}
+dl{margin:0}dt{color:#9eb4b8;font-size:11px;font-weight:800;margin-top:17px}dd{margin:4px 0 0;font-size:13px;font-weight:750;overflow-wrap:anywhere}
+.code{background:#0c1b25;border:1px solid #2c4b57;border-radius:9px;padding:10px;font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#e0f9c9;overflow-wrap:anywhere}
+.result{margin-top:23px;background:#0c2029;border:1px solid #527e5b;border-radius:12px;padding:20px}
+.result[data-state="mismatch"],.result[data-state="error"]{border-color:#bb876e}
+.result[hidden]{display:none}.result h3{font-size:22px;letter-spacing:-.04em;margin:0 0 9px}.result p{font-size:13px}
+.caution{margin-top:23px;border-left:2px solid var(--accent);padding:14px 20px;background:#12202b;font-size:12px;color:#cad9d5}
+.steps{margin-top:43px}.steps h2{font-size:23px}.steps ol{padding-left:23px;display:grid;gap:9px;color:#b8cbcd;font-size:14px}
+.note{font-size:12px}footer{border-top:1px solid var(--line);padding:25px 0;color:#91a7ad;font-size:11px}
+@media(max-width:760px){.panels{grid-template-columns:1fr}main{padding-top:38px}.card{padding:21px}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+<a class="logo" href="index.html">Game<span>Fit.</span></a>
+<div><a href="index.html#download">Windows 베타 안내</a> · <a href="preview.html">합성 데모</a></div>
+</header>
+<main class="wrap">
+<div class="eyebrow">DOWNLOAD INTEGRITY / V0.10.0 BETA.1</div>
+<h1>다운로드한 ZIP이<br><em>그대로인지 확인해.</em></h1>
+<p class="lead">GameFit Windows 베타 파일의 SHA-256을 브라우저에서 직접 계산하고, GitHub 릴리스에 게시한 기준값과 비교해. 파일 내용은 이 페이지에서 읽기만 하며 서버에 업로드하지 않아.</p>
+<div class="panels">
+<section class="card" aria-labelledby="check-title">
+<h2 id="check-title">01 / 내 ZIP 검사</h2>
+<label for="zipFile">다운로드한 Windows 베타 ZIP 파일 선택</label>
+<input type="file" id="zipFile" accept=".zip,application/zip">
+<p class="note" id="fileInfo">아직 파일을 선택하지 않았어. ZIP을 선택하면 이름과 크기를 표시해.</p>
+<div class="actions"><button type="button" class="button" id="check" disabled>SHA-256 비교하기</button></div>
+<p class="note" id="progress" role="status" aria-live="polite">검사 대기 중</p>
+<section id="result" class="result" hidden aria-live="polite">
+<h3 id="resultTitle"></h3><p id="resultExplanation"></p>
+<dl><dt>계산한 파일 SHA-256</dt><dd class="code" id="actualHash"></dd></dl>
+</section>
+</section>
+<aside class="card" aria-label="릴리스 기준 정보">
+<h2>02 / 공개된 기준값</h2>
+<dl>
+<dt>Release</dt><dd>v0.10.0-beta.1 · Windows x64</dd>
+<dt>파일명</dt><dd id="expectedName">GameFit-Windows-Portable-v0.10.0-beta-unsigned.zip</dd>
+<dt>SHA-256</dt><dd class="code" id="expectedHash">fdfbc0a7edd3633bad93d5e2883e39d8ef5f936ffa68213818b9eb9cc39d6b0c</dd>
+<dt>빌드 커밋</dt><dd class="code">7d6e52b6fa550ab0738d9b05512e8b93aa35b6d4</dd>
+<dt>코드 서명</dt><dd>없음 (Unsigned Beta)</dd>
+</dl>
+<div class="actions"><a class="button" href="https://github.com/minje20221228/gamefit-site/releases/tag/v0.10.0-beta.1" target="_blank" rel="noopener noreferrer">GitHub 원본 릴리스 확인 ↗</a></div>
+<p class="note">비공개 저장소 접근 권한이 있어야 원본 릴리스 파일을 볼 수 있어.</p>
+</aside>
+</div>
+<p class="caution"><strong>무결성 일치는 안전성 인증이 아니야.</strong> SHA-256이 같다는 것은 기준에 등록된 ZIP과 바이트가 일치한다는 뜻일 뿐, 개발자 신원, 악성코드 부재, 코드 서명, 성능 향상을 증명하지 않아. Windows 보안 경고는 무리해서 우회하지 마.</p>
+<section class="steps">
+<h2>파일을 확인한 다음</h2>
+<ol>
+<li>ZIP 해시가 일치할 때에만 배포 파일이 기준값과 같다고 판단해.</li>
+<li>GitHub 원본 프리릴리스와 체크섬을 독립적으로 확인하고, 보안 경고가 나면 실행을 보류해.</li>
+<li>진행하기로 선택했다면 ZIP을 압축 해제한 뒤 GameFit-Beta/GameFit-Beta.exe를 실행해.</li>
+<li>브라우저가 열리면 CSV 하나로 첫 측정 리허설을 진행해. 실제 게임 측정 품질은 별도 검증 대상이야.</li>
+</ol>
+</section>
+</main>
+<footer><div class="wrap">GameFit / Private owner beta · 브라우저 내 SHA-256 계산 · 원격 업로드 및 자동 실행 없음.</div></footer>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const meta=name=>document.querySelector('meta[name="gamefit-'+name+'"]').content;
+const expected=meta("release-sha256").toLowerCase();
+const expectedName=meta("release-zip");
+let selected=null;
+let pending=false;
+function reset(){
+ $("result").hidden=true;$("result").dataset.state="";
+ $("resultTitle").textContent="";$("resultExplanation").textContent="";
+ $("actualHash").textContent="";
+}
+$("zipFile").addEventListener("change",()=>{
+ selected=$("zipFile").files?.[0]||null;
+ reset();
+ const okay=selected && selected.size>0 && selected.size<=200*1024*1024 &&
+    selected.name.toLowerCase().endsWith(".zip");
+ $("check").disabled=!okay||pending;
+ if(!selected){$("fileInfo").textContent="ZIP 파일을 선택해."; $("progress").textContent="검사 대기 중";return;}
+ $("fileInfo").textContent=selected.name+" · "+(selected.size/1024/1024).toFixed(2)+" MiB";
+ $("progress").textContent=okay?"선택 완료 · 파일을 로컬 브라우저에서 검사할 수 있어.":"ZIP 확장자·200MiB 이하 파일·0바이트 초과 조건을 확인해.";
+});
+async function digestBytes(bytes){
+ const hash=await crypto.subtle.digest("SHA-256",bytes);
+ return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+$("check").addEventListener("click",async()=>{
+ if(pending||!selected||$("check").disabled)return;
+ const current=selected;
+ pending=true;$("check").disabled=true;reset();
+ $("progress").textContent="선택한 파일을 이 브라우저에서 읽고 SHA-256을 계산 중이야…";
+ try{
+  if(!globalThis.isSecureContext || !globalThis.crypto?.subtle){
+   throw new Error("안전한 브라우저 환경(HTTPS)에서만 해시 계산을 지원해.");
+  }
+  const bytes=await current.arrayBuffer();
+  const actual=await digestBytes(bytes);
+  if(selected!==current){$("progress").textContent="파일이 변경되었어. 새 파일로 다시 검사해.";return;}
+  const matches=(actual===expected && current.name===expectedName);
+  $("result").hidden=false;
+  $("result").dataset.state=matches?"match":"mismatch";
+  $("actualHash").textContent=actual;
+  if(matches){
+   $("resultTitle").textContent="기준 ZIP과 바이트가 일치해";
+   $("resultExplanation").textContent="파일명과 SHA-256이 이번 베타 기준값과 일치해. 악성코드 없음이나 코드 서명을 증명하는 결과는 아니야.";
+  }else{
+   $("resultTitle").textContent="배포 기준값과 일치하지 않아";
+   $("resultExplanation").textContent="파일명이 다르거나 SHA-256이 불일치해. 실행하지 말고 GitHub 원본 릴리스에서 다시 확인해.";
+  }
+  $("progress").textContent="SHA-256 비교 완료 · 파일은 외부로 전송하지 않았어.";
+ }catch(error){
+  $("result").hidden=false;$("result").dataset.state="error";
+  $("resultTitle").textContent="파일을 검사할 수 없어";
+  $("resultExplanation").textContent="브라우저가 이 환경에서 파일 해시 계산을 지원하지 않거나 파일을 읽을 수 없어. GitHub 원본 체크섬 및 PowerShell Get-FileHash로 확인해.";
+  $("progress").textContent="검사 실패 · 다시 시도할 수 있어.";
+ }finally{
+  pending=false;
+  $("check").disabled=!(selected && selected.size>0 && selected.size<=200*1024*1024 && selected.name.toLowerCase().endsWith(".zip"));
+ }
+});
+</script>
+</body>
+</html>

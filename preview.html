@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b141c">
+<meta name="description" content="GameFit 성능 검증 방식 미리보기. 합성된 FPS 사례로 대조군 노이즈와 성능 변화의 차이를 이해하세요. 실제 PC 측정이나 최적화는 수행하지 않습니다.">
+<title>GameFit · 성능 분석 체험 (합성 데모)</title>
+<style>
+:root{font:15px/1.65 system-ui,-apple-system,"Malgun Gothic",sans-serif;--bg:#0b141d;--fg:#edf4f4;--sub:#abbbc7;--a:#c1f67d;--line:#3b5060;background:var(--bg);color:var(--fg);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}
+header{border-bottom:1px solid #304353;background:#0d1925}
+.wrap{max-width:1100px;margin:auto;padding:0 24px}
+nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{font:900 23px system-ui;color:var(--a);text-decoration:none;letter-spacing:-.05em}
+nav .links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+nav .links a{font-size:12px;color:#bed0d7;text-decoration:none}
+main{padding:65px 0 85px}.eyebrow{font-weight:900;letter-spacing:.15em;color:var(--a);font-size:12px}
+h1{font-size:clamp(35px,5vw,61px);line-height:1.17;letter-spacing:-.055em;margin:15px 0 20px}
+h1 em{color:var(--a);font-style:normal}.lead{max-width:710px;font-size:16px;color:var(--sub)}
+.pill{display:inline-flex;padding:4px 12px;border:1px solid #6e8b51;border-radius:30px;color:var(--a);font-size:12px;font-weight:800}
+.step{display:flex;align-items:center;gap:8px;color:var(--sub);font-size:13px;margin-top:22px;flex-wrap:wrap}
+.step span{border:1px solid var(--line);padding:4px 9px;border-radius:7px}
+.panel{background:#152433;border:1px solid var(--line);padding:28px;border-radius:17px;margin-top:25px}
+h2{font-size:23px;margin:0 0 12px}p{color:var(--sub)}
+.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:18px 0}
+.choice{border:1px solid #496071;background:#0e1d2b;border-radius:13px;color:var(--fg);padding:20px;text-align:left;cursor:pointer;font:inherit}
+.choice b{display:block;font-size:15px;margin-bottom:8px}.choice small{color:#aabcc8;font-size:12px}
+.choice[aria-pressed=true]{border:2px solid var(--a);background:#20352c}
+.choice:hover{border-color:#c0e78b}
+.choice:focus-visible,a:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.result{background:#0b1825;border:1px solid #344d56;border-radius:13px;padding:25px}
+.state{color:var(--a);font-weight:900;letter-spacing:.02em;font-size:20px;margin:0 0 9px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}
+.metric{padding:14px;border:1px solid #2f4656;border-radius:11px}.metric small{color:#abc2c8;display:block}
+.metric strong{font-size:25px}.explain{color:#d1dfe0}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:1px solid #4b6575;border-radius:10px;text-decoration:none;padding:12px 17px;color:#e9f4f3;font-weight:800;font-size:13px}
+.btn.primary{background:var(--a);border-color:var(--a);color:#182311}
+.columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.item{padding:21px;border:1px solid var(--line);border-radius:12px;background:#0d1b28}.item b{display:block;color:var(--a)}.item p{font-size:13px;margin-bottom:0}
+.notice{border-top:1px solid #344758;padding-top:24px;font-size:12px}
+@media(max-width:760px){main{padding:36px 0}.choices,.metrics,.columns{grid-template-columns:1fr}.panel{padding:19px}.wrap{padding:0 17px}}
+</style>
+</head>
+<body>
+<header><nav class="wrap"><a href="index.html" class="logo">GameFit</a><div class="links"><a href="index.html#features">어떤 제품인가요?</a><a href="#test">예시 체험</a><a href="index.html#download">출시 준비 상태</a></div></nav></header>
+<main class="wrap">
+<div class="eyebrow">GAMEFIT E7 / EXPLAIN THE EVIDENCE</div>
+<h1>FPS가 올랐다는 말,<br><em>얼마나 믿을 수 있을까?</em></h1>
+<p class="lead">아래는 실제 사용자의 PC가 아닌 **합성된 예시 데이터**야. 한 번의 높은 FPS보다 측정 조건과 자연 변동을 먼저 확인해야 하는 이유를 클릭 한 번으로 볼 수 있어.</p>
+<span class="pill">브라우저 예시 · 실제 FPS 측정 아님</span>
+<div class="step"><span>1. 예시 선택</span><span>2. 판단 이유 확인</span><span>3. 로컬 분석 방법 확인</span></div>
+<section id="test" class="panel">
+<h2>01. 어떤 결과를 살펴볼까?</h2>
+<p>성능이 좋아 보이는 상황도 대조군 상태에 따라 판정이 달라질 수 있어. 실제 사용법을 보기 전에 서로 다른 세 상황을 선택해 봐.</p>
+<div class="choices" aria-label="합성 예시 선택">
+<button type="button" class="choice" data-case="stable" aria-pressed="true"><b>대조군 안정</b><small>동일 설정 변동 0.7%, 변경 후 평균 FPS +12%</small></button>
+<button type="button" class="choice" data-case="noisy" aria-pressed="false"><b>대조군이 흔들림</b><small>동일 설정 변동 6%, 변경 후 평균 FPS +4%</small></button>
+<button type="button" class="choice" data-case="tradeoff" aria-pressed="false"><b>평균은 상승, 끊김 악화</b><small>평균 FPS +9%, 하위 FPS -14%</small></button>
+</div>
+<div class="result" aria-live="polite">
+<p class="state" id="state">잠정적인 개선 후보</p>
+<div class="metrics">
+<div class="metric"><small>A/A 대조군 차이 (합성)</small><strong id="aa">0.7%</strong></div>
+<div class="metric"><small>A/B 평균 FPS 변화 (합성)</small><strong id="avg">+12%</strong></div>
+<div class="metric"><small>A/B 하위 FPS 변화 (합성)</small><strong id="low">+5%</strong></div>
+</div>
+<p class="explain" id="explain">동일 설정의 변동이 작고, 변경 후 평균과 하위 FPS 모두 개선된 예시야. 그래도 실제 실험에서는 다른 날의 반복 측정이 필요해.</p>
+</div>
+<p style="font-size:12px">이 화면의 숫자와 판정은 설명용으로 미리 작성된 합성 사례야. 로컬 FastAPI 엔진의 분석 결과를 직접 연결하거나 실제 게임을 자동 측정하지 않아.</p>
+</section>
+<section class="panel">
+<h2>02. 실제로 해보고 싶다면?</h2>
+<div class="columns">
+<div class="item"><b>STEP 1 · CSV 준비</b><p>Windows에서 PresentMon의 원시 프레임 CSV를 수집하고, E5에서 올바른 게임 프로세스 데이터를 분리해.</p></div>
+<div class="item"><b>STEP 2 · 대조군 검사</b><p>동일 설정 A₁·A₂를 각 3~5회 측정해 자연 변동을 확인해.</p></div>
+<div class="item"><b>STEP 3 · 실험 결과 확인</b><p>설정을 한 가지 바꾼 B 측정 뒤 E6에서 잠정 비교 결과와 재측정 사유를 확인해.</p></div>
+</div>
+<div class="btns">
+<a class="btn primary" href="launch.html">무료 데모 다운로드·베타 상태 확인</a>
+<a class="btn" href="verify.html">받은 Windows ZIP 해시 확인</a>
+</div>
+<p class="notice">개발 단계의 실행 가이드이며 정식 설치 프로그램은 아직 제공되지 않아. 외부 결제와 서버 업로드는 없고, 실제 PC의 측정·통계 신뢰도는 추가 검증이 필요해.</p>
+</section>
+</main>
+<script>
+"use strict";
+const cases={
+stable:{state:"잠정적인 개선 후보",aa:"0.7%",avg:"+12%",low:"+5%",explain:"대조군 변동이 작고 평균과 하위 FPS가 함께 좋아진 합성 사례야. 실제 분석에서도 유의성이나 인과적 개선이 검증됐다는 뜻은 아니며 재현 측정이 필요해."},
+noisy:{state:"대조군부터 재측정",aa:"6%",avg:"+4%",low:"+1%",explain:"설정을 바꾸지 않아도 대조군이 6% 흔들리는 예시야. 변경 후 4% 증가만 보고 성능 개선이라고 결론 낼 수 없으므로 먼저 측정 환경을 정리해야 해."},
+tradeoff:{state:"평균 개선과 끊김 악화 가능성",aa:"0.6%",avg:"+9%",low:"-14%",explain:"평균 FPS가 높아져도 하위 FPS가 악화될 수 있어. 하나의 '성능 향상' 숫자로 포장하지 않고 상충하는 지표를 나눠 보여줘야 해."}
+};
+for(const button of document.querySelectorAll("[data-case]")){
+ button.addEventListener("click",()=>{
+  for(const b of document.querySelectorAll("[data-case]"))b.setAttribute("aria-pressed",String(b===button));
+  const item=cases[button.dataset.case];
+  for(const field of ["state","aa","avg","low","explain"])document.getElementById(field).textContent=item[field];
+ });
+}
+</script>
+</body></html>
