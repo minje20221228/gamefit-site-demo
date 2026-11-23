@@ -18,12 +18,12 @@
       "size": 10922
     },
     "index.html": {
-      "sha256": "50b41be7aa7cfe215e11768afe0d55c7a6fc45bfc96207f817d831eab6a7856d",
-      "size": 27673
+      "sha256": "d821f993e7db317c3b68a6c3a53d9173fb549dbaadb0442c7ffa796674cbda1b",
+      "size": 27585
     },
     "launch.html": {
-      "sha256": "53b76c9ce2581a8d11f353a69823603a3fd39e2a2739e5391d2625448cabc395",
-      "size": 8146
+      "sha256": "a1c0a3be22dbd7ff69cfd855f67b6af0e5e2733649628fa73358e98bad7aa7ca",
+      "size": 8122
     },
     "plans.html": {
       "sha256": "098e6346c073257418fc61f2f6b7a7b9e4214b0b7b074f66821aa713f05ed22e",
@@ -34,8 +34,8 @@
       "size": 8606
     },
     "verify.html": {
-      "sha256": "d50e3ba1e32be3ceb5a0235811779dc3bb0734cd6bdc1d7202a9d6753e7d2e2f",
-      "size": 10440
+      "sha256": "2f2ed88d058d383333301a76b0921a13187097b1d11dcb047235507ebf7d9b44",
+      "size": 10403
     }
   }
 }
